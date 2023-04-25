@@ -1,0 +1,5 @@
+Pepsi 0 6 needs-more-products
+Cola 2 6 --
+Mars 10 3.5 --
+Chips 20 4 --
+Water 10 2.5 --

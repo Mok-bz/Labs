@@ -1,0 +1,5 @@
+Pepsi 1 6 --
+Cola 1 6 --
+Mars 10 3.5 --
+Chips 20 4 --
+Water 10 2.5 --
