@@ -2,16 +2,17 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include "HeroManagging.hpp"
 #include "MonsterManagging.hpp"
 #include "Templates.hpp"
 
 using namespace std;
 
-void chooseProffessionOfHero(Character &hero)
+void chooseProffessionOfHero(Character& hero)
 {
     int choice;
-    cout << "choose : 1 for Mage | 2 for Berserker | 3 for Warrior | 4 for thief \n";
+    cout << "Choose: 1 for Mage | 2 for Berserker | 3 for Warrior | 4 for Thief\n";
     cin >> choice;
     switch (choice)
     {
@@ -35,40 +36,39 @@ void chooseProffessionOfHero(Character &hero)
         break;
     }
 }
-void makeNewCHaracter ()
+
+void makeNewCharacter()
 {
     string name;
     int strength, dexterity, endurance, intelligence, charisma;
-    cout << " Character Name: " << endl;
+    cout << "Character Name: ";
     cin >> name;
-    cout << " Character strength: " << endl;
+    cout << "Character strength: ";
     cin >> strength;
-    cout << " Character dexterity: " << endl;
+    cout << "Character dexterity: ";
     cin >> dexterity;
-    cout << " Character endurance: " << endl;
+    cout << "Character endurance: ";
     cin >> endurance;
-    cout << " Character intelligence: " << endl;
+    cout << "Character intelligence: ";
     cin >> intelligence;
-    cout << " Character charisma: " << endl;
+    cout << "Character charisma: ";
     cin >> charisma;
 
-    
-    cin.ignore(); // ignore the newline character left in the buffer by cin
+    cin.ignore(); // Ignore the newline character left in the buffer by cin
     Character New(name, strength, dexterity, endurance, intelligence, charisma);
     New.display();
     chooseProffessionOfHero(New);
     New.exportCharacter();
-
-
 }
 
 void loadCharacter()
 {
     string fileName;
-    cout << "Enter the Character ( FileName.txt )..\n" << "Character: " << endl;
+    cout << "Enter the Character (FileName.txt): ";
     getline(cin, fileName);
-    ifstream inFile(fileName) ;
-    if (!inFile.is_open()) {
+    ifstream inFile(fileName.c_str());
+    if (!inFile.is_open())
+    {
         cout << "Error: unable to open file " << fileName << endl;
         return;
     }
@@ -89,35 +89,38 @@ void loadCharacter()
 void createMonsters()
 {
     vector<Monster> Monsters;
-    string Mname,Mcollection;
+    string Mname, Mcollection;
 
-    for (int i=0; i< 5; i++)
+    for (int i = 0; i < 5; i++)
     {
-        cout << "Enter monster name";
+        cout << "Enter monster name: ";
         cin >> Mname;
         Monster monster(Mname);
         Monsters.push_back(monster);
     }
-    cout << "Enter the name of Monsters collection" ;
-    cin >> Mcollection ;
-    string fileName = Mcollection+".txt";
-    ofstream toFile(fileName);
-    for (int i=0; i<Monsters.size();i++)
+    cout << "Enter the name of Monsters collection: ";
+    cin >> Mcollection;
+    string fileName = Mcollection + ".txt";
+    ofstream toFile(fileName.c_str());
+    if (!toFile.is_open())
     {
-        toFile << Monsters[i].getMonsterInfo()<< endl;
+        cout << "Error: unable to create file " << fileName << endl;
+        return;
+    }
+    for (int i = 0; i < static_cast<int>(Monsters.size()); i++)
+    {
+        toFile << Monsters[i].getMonsterInfo() << endl;
     }
     toFile.close();
-    cout << "New List of Monsters succefully created\n" << "File name: "<< fileName << endl;
-
-};
+    cout << "New List of Monsters successfully created.\nFile name: " << fileName << endl;
+}
 
 int main()
 {
-    srand((unsigned) time(0));
-    int userChoice;
-    while (userChoice != 4 )
+    srand(static_cast<unsigned>(time(0)));
+    int userChoice = 0;
+    while (userChoice != 4)
     {
-        if (userChoice != 4 ){
         cout << "Menu:" << endl;
         cout << "1. Create new character" << endl;
         cout << "2. Load character" << endl;
@@ -125,10 +128,11 @@ int main()
         cout << "4. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> userChoice;
-        cin.ignore(); // ignore the newline character left in the buffer by cin
-        switch (userChoice) {
+        cin.ignore(); // Ignore the newline character left in the buffer by cin
+        switch (userChoice)
+        {
         case 1:
-            makeNewCHaracter();
+            makeNewCharacter();
             break;
         case 2:
             loadCharacter();
@@ -142,17 +146,7 @@ int main()
         default:
             cout << "Invalid choice. Try again." << endl;
         }
-        }
-        else 
-        {
-            exit(0);
-        }
     }
-    
-
-
-
-
 
     return 0;
 }

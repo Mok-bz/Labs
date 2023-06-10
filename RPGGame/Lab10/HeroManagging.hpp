@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <cstdlib> 
 using namespace std;
 
 class Character
@@ -18,6 +19,8 @@ protected:
 
 public:
     Character(string nam, int str, int dext, int endu, int intel, int chari);
+    Character(); // added necessary default constructor
+    ~Character(); // added necessary default destructor
     void  exportCharacter();
     void  display();
     friend class Warrior;
